@@ -14,7 +14,17 @@ if (!fic) {
   fetch(fic)
     .then(r => r.text())
     .then(t => {
-      document.getElementById("out").textContent = t;
+      const lignes = t
+        .split("\n")
+        .map(l => l.trim())
+        .filter(l => l.length > 0);
+      
+      if (lignes.length === 0) {
+        document.getElementById("out").textContent = "Fichier vide";
+      } else {
+        const randomLine = lignes[Math.floor(Math.random() * lignes.length)];
+        document.getElementById("out").textContent = randomLine;
+      }
     })
     .catch(() => {
       document.getElementById("out").textContent = "Erreur de chargement";
